@@ -17,9 +17,22 @@ class PageController extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return Response
+     */
     public function viewAction(int $id)
     {
-        return new Response("viewAction");
+        $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
+        $page = $pageRepo->find($id);
+
+        if (!$page) {
+            throw $this->createNotFoundException('Page is not found!');
+        }
+
+        return $this->render('@Page/Page/view.html.twig', [
+            'page' => $page
+        ]);
     }
 
 }
