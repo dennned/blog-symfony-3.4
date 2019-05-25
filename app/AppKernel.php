@@ -1,4 +1,5 @@
 <?php
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -17,7 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new PageBundle\PageBundle(),
-            new TermBundle\TermBundle()
+            new TermBundle\TermBundle(),
+            new CommentBundle\CommentBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

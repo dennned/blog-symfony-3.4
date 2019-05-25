@@ -1,8 +1,5 @@
 <?php
-
-
 namespace PageBundle\DataFixtures\ORM;
-
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -31,6 +28,9 @@ class PageLoad extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * @return array
+     */
     public function getDependencies()
     {
         return [

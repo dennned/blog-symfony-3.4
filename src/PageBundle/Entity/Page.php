@@ -1,9 +1,10 @@
 <?php
 namespace PageBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use TermBundle\Entity\Term;
+use CommentBundle\Entity\Comment;
 
 /**
  * Class Page
@@ -37,13 +38,23 @@ class Page
     private $category;
 
     /**
+     * @ORM\ManyToMany(targetEntity="CommentBundle\Entity\Comment", mappedBy="pages", cascade={"persist", "remove"})
+     */
+    private $comments;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created;
 
+    /**
+     * Page constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         $this->created = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -150,5 +161,39 @@ class Page
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param Comment $comment
+     *
+     * @return Page
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
