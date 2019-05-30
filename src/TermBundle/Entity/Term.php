@@ -50,6 +50,13 @@ class Term
         $this->created = new \DateTime();
     }
 
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id

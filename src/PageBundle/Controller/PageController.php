@@ -1,8 +1,10 @@
 <?php
 namespace PageBundle\Controller;
 
-
+use PageBundle\Entity\Page;
+use PageBundle\Forms\PageForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller
@@ -35,4 +37,24 @@ class PageController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function addAction(Request $request)
+    {
+        $page = new Page();
+        $form = $this->createForm(PageForm::class, $page);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()) {
+            dump($page->getCategory());
+            die;
+        }
+
+        return $this->render('@Page/Page/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
