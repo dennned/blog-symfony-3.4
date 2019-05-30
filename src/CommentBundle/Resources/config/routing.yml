@@ -1,0 +1,16 @@
+#comment_list:
+#  path: /comment
+#  defaults: { _controller: CommentBundle:Comment:list }
+#
+#comment_view:
+#  path: /comment/{id}
+#  defaults: { _controller: CommentBundle:Comment:view }
+
+#comment_add:
+#  path: /comment/add
+#
+#comment_edit:
+#  path: /comment/{id}/edit
+#
+#comment_delete:
+#  path: /comment{id}/delete

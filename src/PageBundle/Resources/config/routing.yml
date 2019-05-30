@@ -5,3 +5,14 @@ page_list:
 page_view:
   path: /page/{id}
   defaults: { _controller: PageBundle:Page:view }
+
+#page_comments:
+#  path: /page/{id}/comments
+#page_add:
+#  path: /page/add
+#
+#page_edit:
+#  path: /page/{id}/edit
+#
+#page_delete:
+#  path: /page/{id}/delete
