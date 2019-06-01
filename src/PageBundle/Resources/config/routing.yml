@@ -9,14 +9,20 @@ page_add:
 page_view:
   path: /page/{id}
   defaults: { _controller: PageBundle:Page:view }
+  requirements:
+    page: '\d+'
 
 #page_comments:
 #  path: /page/{id}/comments
 
+page_edit:
+  path: /page/{id}/edit
+  defaults: { _controller: PageBundle:Page:edit }
+  requirements:
+    page: '\d+'
 
-
-#page_edit:
-#  path: /page/{id}/edit
-#
-#page_delete:
-#  path: /page/{id}/delete
+page_delete:
+  path: /page/{id}/delete
+  defaults: { _controller: PageBundle:Page:remove }
+  requirements:
+    page: '\d+'
