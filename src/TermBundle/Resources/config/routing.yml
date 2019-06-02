@@ -1,16 +1,25 @@
-#term_list:
-#  path: /term
-#  defaults: { _controller: TermBundle:Term:list }
-#
-#term_view:
-#  path: /term/{id}
-#  defaults: { _controller: TermBundle:Term:view }
+term_list:
+  path: /term
+  defaults: { _controller: TermBundle:Term:list }
 
-#term_add:
-#  path: /term/add
-#
-#term_edit:
-#  path: /term/{id}/edit
-#
-#term_delete:
-#  path: /term/{id}/delete
+term_add:
+  path: /term/add
+  defaults: {_controller: TermBundle:Term:add}
+
+term_view:
+  path: /term/{id}
+  defaults: { _controller: TermBundle:Term:view }
+  requirements:
+    page: '\d+'
+
+term_edit:
+  path: /term/{id}/edit
+  defaults: { _controller: TermBundle:Term:edit }
+  requirements:
+    page: '\d+'
+
+term_delete:
+  path: /term/{id}/delete
+  defaults: { _controller: TermBundle:Term:remove }
+  requirements:
+    page: '\d+'
