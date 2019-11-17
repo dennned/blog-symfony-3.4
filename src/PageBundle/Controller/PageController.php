@@ -1,6 +1,8 @@
 <?php
 namespace PageBundle\Controller;
 
+use CommentBundle\Entity\Comment;
+use CommentBundle\Forms\CommentForm;
 use PageBundle\Entity\Page;
 use PageBundle\Forms\PageDeleteForm;
 use PageBundle\Forms\PageForm;
@@ -24,7 +26,7 @@ class PageController extends Controller
      * @param int $id
      * @return Response
      */
-    public function viewAction(int $id)
+    public function viewAction(int $id, Request $request)
     {
         $pageRepo = $this->getDoctrine()->getRepository('PageBundle:Page');
         $page = $pageRepo->find($id);
@@ -33,8 +35,27 @@ class PageController extends Controller
             throw $this->createNotFoundException('Page is not found!');
         }
 
+        $commentForm = $this->createForm(CommentForm::class);
+        $commentForm->handleRequest($request);
+
+        if($commentForm->isSubmitted()){
+            /** @var Comment $comment */
+            $comment = $commentForm->getData();
+            $comment->addPage($page);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('page_view', [
+                'id' => $page->getId()
+            ]);
+
+        }
+
         return $this->render('@Page/Page/view.html.twig', [
-            'page' => $page
+            'page' => $page,
+            'comment_form' => $commentForm->createView(),
         ]);
     }
 
@@ -53,8 +74,6 @@ class PageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($page);
             $em->flush();
-
-            return $this->redirectToRoute('page_list');
         }
 
         return $this->render('@Page/Page/add.html.twig', [
